@@ -6,40 +6,27 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 
-par = 24
-tt= 50
-τ= 0.002
-file_path1 = f"misc/datafiles/Rog_bipolar/par_{par}/tt_{tt}/τ_{τ}/t_probsurv.dat"
+par = 2
+tt= 11.160714285714286
+
+file_path1 = f"misc/datafiles/FFI/par_{par}/tt_{tt}/t_ρ_μμ.dat"
 
 # Read the data from the file
 data1 = np.loadtxt(file_path1)
 
 
 t1_array = data1[:, 0]
-probsurv_τ1 = data1[:, 1]
+ρ_μμ_τ1 = data1[:, 1]
 
 
-τ= 0.05
-
-file_path2 = f"misc/datafiles/Rog_bipolar/par_{par}/tt_{tt}/τ_{τ}/t_probsurv.dat"
+file_path2 = f"misc/datafiles/FFI/par_{par}/tt_{tt}/t_ρₑₑ.dat"
 
 # Read the data from the file
 data2 = np.loadtxt(file_path2)
 
 
 t2_array = data2[:, 0]
-probsurv_τ2 = data2[:, 1]
-
-τ=  0.25
-
-file_path3 = f"misc/datafiles/Rog_bipolar/par_{par}/tt_{tt}/τ_{τ}/t_probsurv.dat"
-
-# Read the data from the file
-data3 = np.loadtxt(file_path3)
-
-
-t3_array = data3[:, 0]
-probsurv_τ3 = data3[:, 1]
+ρₑₑ_τ2 = data2[:, 1]
 
 mpl.rc('text', usetex=True)
 mpl.rcParams['font.size'] = 20
@@ -60,15 +47,14 @@ fig, ax = plt.subplots(figsize=(10, 8))
 ax.tick_params(axis='both', which='both', direction='in', top=True, right=True)
 ax.minorticks_on()
 
-plt.plot(t1_array, probsurv_τ1, color="orange", label="$\delta =0.002 \mu^{-1}$", linestyle='dotted')
-ax.plot(t2_array, probsurv_τ2, color="blue", label="$\delta =0.05 \mu^{-1}$", linestyle='dashed') 
-ax.plot(t3_array, probsurv_τ3, color="red", label="$\delta =0.25 \mu^{-1}$", linestyle='solid') 
+plt.plot(t1_array, ρ_μμ_τ1, color="green", label="$\rho_{\mu \mu}$", linestyle='dotted')
+ax.plot(t2_array, ρₑₑ_τ2, color="purple", label="$\rho_{\e \e}$", linestyle='dashed') 
 
-plt.xlabel("Time $t$ [$\mu^{-1}$]")
-plt.ylabel("Survival Probability $p(t)$")
-ax.set_title("Rogerro(2021) Bipolar test Fig. 7 \n Appendix B : Direct Mean-Field Results", fontsize=24) 
+plt.xlabel("Time $t/ \\tau_{bipolar}$")
+plt.ylabel("$\\rho_{ab}$")
+ax.set_title("Richers(2021) Bipolar test \n Fig. 13 Appendix A", fontsize=24) 
 plt.legend(frameon=False)
 ax.grid(False)
 plt.legend(loc='lower center', frameon=False, bbox_to_anchor=(0.45, 0.01))
-plt.savefig("Rog_biplolar_Fig_7_MF.pdf")
+plt.savefig("Richers_biplolar_Fig_13_MF.pdf")
 plt.show()
